@@ -17,7 +17,7 @@
                 {% for todo_item in todo_items %}
                     <li class="list-group-item">{{ todo_item.activity }}
                         <div class="float-right">
-                            <form action="completed_todo/{{ todo_item.pk }}/" action="post">
+                            <form action="completed_todo/{{ todo_item.pk }}" method="get">{% csrf_token %}
                                 <button type="submit" class="btn btn-sm btn-primary">Completed</button>
                             </form>
                             <p>{{ todo_item.starttimestamp }}</p>
@@ -26,23 +26,26 @@
                 {% endfor %}
             </ul>
         </div>
-        <div>
+    </div>
 
-            <div class="row mt-4">
-                <div class="col">
-                    <ul class="list-group">
-                        {% for todo_item in done_items %}
-                            <li class="list-group-item">{{ todo_item.activity }}
-                                <div class="float-right">
-                                    <form action="delete_todo/{{ todo_item.pk }}/" action="post">
-                                        <button type="submit" class="btn btn-sm btn-primary">Completed</button>
-                                    </form>
-                                    <p>Completed On : {{ todo_item.endtimestamp }}</p>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div>
+    <br><br><br>
+
+    <div class="row mt-4">
+        <div class="col">
+            <h1>Completed Items</h1>
+            <ul class="list-group">
+                {% for todo_item in done_items %}
+                    <li class="list-group-item">{{ todo_item.activity }}
+                        <div class="float-right">
+                            <form action="delete_todo/{{ todo_item.pk }}" method="get"> {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                            <p>Completed On : {{ todo_item.endtimestamp }}</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
 
 {% endblock content %}
