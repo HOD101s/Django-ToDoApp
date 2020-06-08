@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="row mt-4">
+        <div class="col">
+            <h2>Add Item</h2>
+            <form action="add_todo/" method="post" class="form-inline">
+                <input type="text" required name="content" class="form-control mb-2 mr-sm-2" placeholder="type here...">
+                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <ul class="list-group">
+                {% for todo_item in todo_items %}
+                    <li class="list-group-item">{{ todo_item.activity }}
+                        <div class="float-right">
+                            <form action="completed_todo/{{ todo_item.pk }}/" action="post">
+                                <button type="submit" class="btn btn-sm btn-primary">Completed</button>
+                            </form>
+                            <p>{{ todo_item.starttimestamp }}</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+
+            <div class="row mt-4">
+                <div class="col">
+                    <ul class="list-group">
+                        {% for todo_item in done_items %}
+                            <li class="list-group-item">{{ todo_item.activity }}
+                                <div class="float-right">
+                                    <form action="delete_todo/{{ todo_item.pk }}/" action="post">
+                                        <button type="submit" class="btn btn-sm btn-primary">Completed</button>
+                                    </form>
+                                    <p>Completed On : {{ todo_item.endtimestamp }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+
+{% endblock content %}
